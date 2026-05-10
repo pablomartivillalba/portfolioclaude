@@ -32,21 +32,21 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.4rem 3rem;
+    padding: 2.1rem 3rem;
     background: rgba(14,14,14,0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid #1f1f1f;
   }
   .nav-logo {
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: .8rem;
+    font-weight: 700; font-size: .9rem;
     letter-spacing: .18em; text-transform: uppercase;
     color: var(--white); text-decoration: none;
   }
   .nav-links { display: flex; gap: 2.4rem; list-style: none; }
   .nav-links a {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: .72rem; font-weight: 600;
+    font-size: .82rem; font-weight: 600;
     letter-spacing: .2em; text-transform: uppercase;
     color: var(--grey); text-decoration: none;
     transition: color .2s;
@@ -54,10 +54,10 @@
   .nav-links a:hover { color: var(--white); }
   .nav-contact a {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: .72rem; font-weight: 700;
+    font-size: .82rem; font-weight: 700;
     letter-spacing: .18em; text-transform: uppercase;
     color: var(--white); text-decoration: none;
-    border: 1px solid #333; padding: .45rem 1.1rem;
+    border: 1px solid #333; padding: .5rem 1.2rem;
     transition: border-color .2s;
   }
   .nav-contact a:hover { border-color: var(--white); }
@@ -103,7 +103,27 @@
     color: var(--white); margin-bottom: 2rem;
   }
   .hero-name span { display: block; }
-  .hero-name .light { font-weight: 300; color: var(--grey); }
+  .hero-name .light { font-weight: 300; color: var(--grey-light); }
+
+  /* ── HERO TEXTURE IMAGE (right side) ── */
+  .hero-texture {
+    position: absolute;
+    right: 0; top: 0;
+    width: 60%; height: 100%;
+    z-index: 0; pointer-events: none;
+  }
+  .hero-texture img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center right;
+    display: block;
+    mix-blend-mode: lighten;
+    opacity: 0.9;
+  }
+  .hero-texture::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to right, #0e0e0e 0%, rgba(14,14,14,0.6) 30%, transparent 65%);
+  }
   .hero-desc {
     max-width: 540px; font-size: 1rem;
     font-weight: 300; line-height: 1.7;
@@ -461,11 +481,13 @@
 <!-- HERO -->
 <section id="hero">
   <canvas id="hero-canvas"></canvas>
+  <div class="hero-texture">
+    <img src="images/hero-texture.jpg" alt="">
+  </div>
   <p class="hero-eyebrow fade-in">Computational Design Portfolio</p>
   <h1 class="hero-name fade-in">
-    <span>Pablo</span>
+    <span class="light">pablo</span>
     <span>Martí</span>
-    <span class="light">Villalba</span>
   </h1>
   <p class="hero-desc fade-in">
     Civil and Architectural Engineer bridging innovative architectural expression with technical rigour. Parametric tools, performance-driven design, and a spirit of exploration.
