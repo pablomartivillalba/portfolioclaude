@@ -91,9 +91,10 @@
 
   .hero-eyebrow {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: .78rem; font-weight: 600;
-    letter-spacing: .28em; text-transform: uppercase;
+    font-size: clamp(1rem, 2vw, 1.6rem); font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase;
     color: var(--grey); margin-bottom: 1.2rem;
+    white-space: nowrap;
   }
   .hero-name {
     font-family: 'Barlow Condensed', sans-serif;
@@ -116,13 +117,6 @@
     width: 100%; height: 100%;
     object-fit: cover; object-position: center right;
     display: block;
-    mix-blend-mode: lighten;
-    opacity: 0.9;
-  }
-  .hero-texture::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(to right, #0e0e0e 0%, rgba(14,14,14,0.6) 30%, transparent 65%);
   }
   .hero-desc {
     max-width: 540px; font-size: 1rem;
@@ -215,8 +209,8 @@
   }
   .stat-label {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: .65rem; font-weight: 600;
-    letter-spacing: .18em; text-transform: uppercase;
+    font-size: .9rem; font-weight: 600;
+    letter-spacing: .12em; text-transform: uppercase;
     color: var(--grey); margin-top: .3rem;
   }
   .about-body {
@@ -507,14 +501,15 @@
   <div class="about-grid">
     <div>
       <h2 class="about-heading fade-in">
-        Engineering<br>
-        <em>meets</em><br>
-        Expression
+        Design<br>
+        <em>through</em><br>
+        Systems
       </h2>
       <div class="about-stats fade-in">
-        <div><div class="stat-num">5+</div><div class="stat-label">Years experience</div></div>
-        <div><div class="stat-num">MEng</div><div class="stat-label">University of Bath</div></div>
-        <div><div class="stat-num">3</div><div class="stat-label">Countries worked</div></div>
+        <div><div class="stat-num">3+</div><div class="stat-label">Years experience</div></div>
+        <div><div class="stat-num">MEng (Hons)</div><div class="stat-label">University of Bath</div></div>
+        <!-- UPDATE THIS NUMBER as projects span new countries -->
+        <div><div class="stat-num">11</div><div class="stat-label">Countries</div></div>
         <div><div class="stat-num">6</div><div class="stat-label">Project typologies</div></div>
       </div>
     </div>
@@ -630,28 +625,28 @@
       <h2 class="exp-col-title">Work<br>Experience</h2>
       <div class="exp-list">
         <div class="exp-item">
+          <div class="exp-role">Architectural Engineer · Generative Design Leader</div>
+          <div class="exp-company">ONDDI</div>
+          <div class="exp-location">🇪🇸 San Sebastián, Spain</div>
+          <div class="exp-date">2025 — Present</div>
+        </div>
+        <div class="exp-item">
           <div class="exp-role">Architectural Engineer</div>
           <div class="exp-company">IDOM Architecture</div>
-          <div class="exp-location">Madrid, Spain</div>
-          <div class="exp-date">2023 — Present</div>
+          <div class="exp-location">🇪🇸 Madrid, Spain</div>
+          <div class="exp-date">2023 — 2025</div>
         </div>
         <div class="exp-item">
           <div class="exp-role">Generative Design Leader</div>
           <div class="exp-company">IDOM Architecture</div>
-          <div class="exp-location">Madrid, Spain</div>
-          <div class="exp-date">2024 — Present</div>
+          <div class="exp-location">🇪🇸 Madrid, Spain</div>
+          <div class="exp-date">2024 — 2025</div>
         </div>
         <div class="exp-item">
           <div class="exp-role">Intern</div>
           <div class="exp-company">ARUP</div>
-          <div class="exp-location">Amsterdam, The Netherlands</div>
+          <div class="exp-location">🇳🇱 Amsterdam, The Netherlands</div>
           <div class="exp-date">2020 — 2021</div>
-        </div>
-        <div class="exp-item">
-          <div class="exp-role">Intern</div>
-          <div class="exp-company">Vela Design Architecture</div>
-          <div class="exp-location">Madrid, Spain</div>
-          <div class="exp-date">2019</div>
         </div>
       </div>
     </div>
@@ -663,19 +658,19 @@
         <div class="exp-item">
           <div class="exp-role">Civil and Architectural Engineering MEng</div>
           <div class="exp-company">University of Bath — <em style="font-weight:300; color:var(--grey)">First-Class Honours</em></div>
-          <div class="exp-location">Bath, United Kingdom</div>
+          <div class="exp-location">🇬🇧 Bath, United Kingdom</div>
           <div class="exp-date">2018 — 2023</div>
         </div>
         <div class="exp-item">
           <div class="exp-role">Architectural Engineering (Exchange)</div>
           <div class="exp-company">Technical University of Denmark (DTU)</div>
-          <div class="exp-location">Copenhagen, Denmark</div>
+          <div class="exp-location">🇩🇰 Copenhagen, Denmark</div>
           <div class="exp-date">2022 — 2023</div>
         </div>
         <div class="exp-item">
           <div class="exp-role">International Baccalaureate</div>
           <div class="exp-company">IES Rosa Chacel — <em style="font-weight:300; color:var(--grey)">Grade A, Design Technology</em></div>
-          <div class="exp-location">Madrid, Spain</div>
+          <div class="exp-location">🇪🇸 Madrid, Spain</div>
           <div class="exp-date">2016 — 2018</div>
         </div>
       </div>
