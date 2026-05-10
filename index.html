@@ -305,17 +305,21 @@
   .project-card:hover .project-card-arrow { color: var(--white); transform: translate(2px,-2px); }
 
   /* ── EXPERIENCE ── */
+  #experience {
+    position: relative;
+    padding-left: calc(320px + 4rem);
+  }
   .exp-layout {
     display: grid;
-    grid-template-columns: 320px 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 4rem;
-    align-items: stretch;
+    align-items: start;
   }
-
   .exp-photo-col {
-    margin-left: -3rem;
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 320px;
     overflow: hidden;
-    align-self: stretch;
   }
   .exp-photo {
     width: 100%;
@@ -324,6 +328,15 @@
     object-position: center top;
     display: block;
     filter: grayscale(15%);
+  }
+
+  /* ── SKILLS HEADING ── */
+  .skills-heading {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    text-transform: uppercase; line-height: .95;
+    margin-bottom: 3rem;
   }
 
   /* Photo placeholder */
@@ -606,23 +619,17 @@
 
 <!-- EXPERIENCE -->
 <section id="experience" class="portfolio-section">
+
+  <!-- Photo bleeds full section height, outside the grid -->
+  <div class="exp-photo-col">
+    <img src="images/profile-photo.jpg" alt="Pablo Martí Villalba" class="exp-photo">
+  </div>
+
   <div class="section-header">
     <span class="section-label">Experience & Education</span>
     <span class="section-num">03</span>
   </div>
   <div class="exp-layout fade-in">
-
-    <!-- PHOTO COLUMN -->
-    <div class="exp-photo-col">
-      <!-- 
-        IMAGE INSTRUCTIONS — Profile photo:
-        Replace the placeholder below with:
-        <img src="images/profile-photo.jpg" alt="Pablo Martí Villalba" class="exp-photo">
-        Use the photo from p.2 of your portfolio PDF (the one on the left side)
-        Crop it portrait/vertical, the face and upper body.
-      -->
-      <img src="images/profile-photo.jpg" alt="Pablo Martí Villalba" class="exp-photo">
-    </div>
 
     <!-- WORK -->
     <div>
@@ -683,6 +690,7 @@
     <span class="section-label">Technical Skills</span>
     <span class="section-num">04</span>
   </div>
+  <h2 class="skills-heading fade-in">Technical<br>Skills</h2>
   <div class="skills-grid fade-in">
     <div>
       <div class="skill-col-title">Design Software</div>
