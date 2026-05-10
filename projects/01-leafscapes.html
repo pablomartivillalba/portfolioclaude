@@ -7,412 +7,104 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300;1,400&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --black: #0e0e0e;
-    --white: #f5f5f0;
-    --grey: #6e6e6e;
-    --grey-light: #afafaf;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.4rem 3rem;
-    background: rgba(14,14,14,0.92); backdrop-filter: blur(12px);
-    border-bottom: 1px solid #1f1f1f;
-  }
-  .nav-logo {
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: .8rem;
-    letter-spacing: .18em; text-transform: uppercase; color: var(--white); text-decoration: none;
-  }
-  .nav-back {
-    font-family: 'Barlow Condensed', sans-serif; font-size: .72rem; font-weight: 600;
-    letter-spacing: .2em; text-transform: uppercase; color: var(--grey); text-decoration: none;
-    transition: color .2s; display: flex; align-items: center; gap: .5rem;
-  }
-  .nav-back:hover { color: var(--white); }
-
-  /* ── PROJECT HERO ── */
-  .project-hero {
-    min-height: 75vh;
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 0 3rem 5rem;
-    position: relative; overflow: hidden;
-    background: var(--black);
-  }
-  .project-hero-bg {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(14,14,14,1) 0%, rgba(14,14,14,0.3) 60%, rgba(14,14,14,0.6) 100%);
-    z-index: 1;
-  }
-
-  /* ── HERO IMAGE ──
-     Reemplaza este bloque con tu imagen cuando la tengas:
-     En el HTML busca el div.project-hero-img-wrap y dentro pon:
-     <img src="../images/01-leafscapes-hero.jpg" alt="Leafscapes" class="project-hero-img">
-  */
-  .project-hero-img-wrap {
-    position: absolute; inset: 0; z-index: 0;
-    background: #111;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .project-hero-img {
-    width: 100%; height: 100%; object-fit: cover; opacity: 0.55;
-  }
-  .project-hero-img-placeholder {
-    display: flex; flex-direction: column; align-items: center; gap: 1rem;
-    opacity: .15;
-  }
-  .project-hero-img-placeholder span {
-    font-family: 'Barlow Condensed', sans-serif; font-size: .7rem; font-weight: 600;
-    letter-spacing: .2em; text-transform: uppercase; color: var(--white);
-  }
-
-  .project-hero-content { position: relative; z-index: 2; }
-  .project-num {
-    font-family: 'Barlow Condensed', sans-serif; font-size: .72rem; font-weight: 700;
-    letter-spacing: .3em; text-transform: uppercase; color: var(--grey); margin-bottom: .8rem;
-  }
-  .project-title {
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
-    font-size: clamp(4rem, 9vw, 9rem); line-height: .9; text-transform: uppercase;
-    color: var(--white); margin-bottom: 2rem;
-  }
-
-  /* ── KEYWORD TAGS ── */
-  .project-tags {
-    display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 2rem;
-  }
-  .tag {
-    font-family: 'Barlow Condensed', sans-serif; font-size: .65rem; font-weight: 700;
-    letter-spacing: .2em; text-transform: uppercase;
-    color: var(--grey-light); border: 1px solid #2a2a2a;
-    padding: .35rem .9rem;
-  }
-
-  /* ── CONTENT AREA ── */
-  .project-content {
-    max-width: 1400px; margin: 0 auto;
-    padding: 6rem 3rem;
-  }
-
-  /* Intro block */
-  .project-intro {
-    display: grid; grid-template-columns: 1fr 1.6fr; gap: 6rem;
-    align-items: start; margin-bottom: 7rem;
-    padding-bottom: 5rem; border-bottom: 1px solid #1e1e1e;
-  }
-  .project-intro-label {
-    font-family: 'Barlow Condensed', sans-serif; font-size: .65rem; font-weight: 700;
-    letter-spacing: .3em; text-transform: uppercase; color: var(--grey);
-    margin-bottom: 1.5rem;
-  }
-  .project-intro-heading {
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
-    font-size: clamp(1.8rem, 3vw, 3rem); text-transform: uppercase; line-height: .95;
-  }
-  .project-intro-heading em { font-weight: 300; font-style: italic; color: var(--grey); }
-  .project-intro-meta {
-    display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2.5rem;
-  }
-  .meta-item {}
-  .meta-label {
-    font-family: 'Barlow Condensed', sans-serif; font-size: .62rem; font-weight: 700;
-    letter-spacing: .25em; text-transform: uppercase; color: var(--grey); margin-bottom: .2rem;
-  }
-  .meta-value { font-size: .85rem; font-weight: 300; color: var(--grey-light); }
-
-  .project-intro-body { font-size: .95rem; font-weight: 300; line-height: 1.85; color: var(--grey-light); }
-  .project-intro-body p + p { margin-top: 1.4rem; }
-
-  /* ── IMAGE BLOCKS ── */
-  /* Full-width image */
-  .img-full {
-    width: 100%; aspect-ratio: 16/7; overflow: hidden;
-    margin-bottom: 1.5rem; background: #111;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .img-full img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-  /* Two-column images */
-  .img-duo {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-  .img-duo-item {
-    aspect-ratio: 4/3; overflow: hidden; background: #111;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .img-duo-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-  /* Three-column images */
-  .img-trio {
-    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-  .img-trio-item {
-    aspect-ratio: 3/4; overflow: hidden; background: #111;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .img-trio-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-  /* Caption */
-  .img-caption {
-    font-family: 'Barlow Condensed', sans-serif; font-size: .65rem; font-weight: 600;
-    letter-spacing: .18em; text-transform: uppercase; color: var(--grey);
-    margin-bottom: 5rem; padding-top: .8rem; border-top: 1px solid #1a1a1a;
-  }
-
-  /* Placeholder for images not yet added */
-  .img-placeholder {
-    width: 100%; height: 100%; min-height: 200px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: .8rem; border: 1px dashed #222;
-  }
-  .img-placeholder span {
-    font-family: 'Barlow Condensed', sans-serif; font-size: .62rem; font-weight: 600;
-    letter-spacing: .18em; text-transform: uppercase; color: #333; text-align: center;
-    padding: 0 1rem;
-  }
-
-  /* ── TEXT SECTIONS ── */
-  .project-section { margin-bottom: 6rem; }
-  .project-section-label {
-    font-family: 'Barlow Condensed', sans-serif; font-size: .65rem; font-weight: 700;
-    letter-spacing: .3em; text-transform: uppercase; color: var(--grey);
-    margin-bottom: 1.2rem; padding-bottom: 1rem; border-bottom: 1px solid #1e1e1e;
-  }
-  .project-section-heading {
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
-    font-size: clamp(1.5rem, 2.5vw, 2.5rem); text-transform: uppercase; line-height: .95;
-    margin-bottom: 1.8rem;
-  }
-  .project-section-body { font-size: .95rem; font-weight: 300; line-height: 1.85; color: var(--grey-light); max-width: 720px; }
-  .project-section-body p + p { margin-top: 1.2rem; }
-
-  /* ── NEXT PROJECT ── */
-  .project-next {
-    border-top: 1px solid #1e1e1e;
-    padding: 4rem 3rem;
-    display: flex; justify-content: space-between; align-items: center;
-    background: #0a0a0a;
-  }
-  .next-label {
-    font-family: 'Barlow Condensed', sans-serif; font-size: .65rem; font-weight: 700;
-    letter-spacing: .3em; text-transform: uppercase; color: var(--grey);
-  }
-  .next-title {
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
-    font-size: clamp(1.5rem, 3vw, 3rem); text-transform: uppercase;
-    color: var(--white); margin-top: .5rem;
-  }
-  .next-arrow {
-    font-size: 2rem; color: var(--grey); text-decoration: none; transition: color .2s, transform .2s;
-  }
-  .next-arrow:hover { color: var(--white); transform: translateX(6px); }
-
-  /* ── ANIMATIONS ── */
-  .fade-in { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
-  .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    .project-intro { grid-template-columns: 1fr; gap: 3rem; }
-    .img-trio { grid-template-columns: 1fr 1fr; }
-    nav { padding: 1.2rem 1.5rem; }
-    .project-hero, .project-content, .project-next { padding-left: 1.5rem; padding-right: 1.5rem; }
-  }
-  @media (max-width: 600px) {
-    .img-duo, .img-trio { grid-template-columns: 1fr; }
-    .project-title { font-size: clamp(3rem, 14vw, 6rem); }
-  }
+  :root{--black:#0e0e0e;--white:#f5f5f0;--grey:#6e6e6e;--grey-light:#afafaf;}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Barlow',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 3rem;background:rgba(14,14,14,0.92);backdrop-filter:blur(12px);border-bottom:1px solid #1f1f1f;}
+  .nav-logo{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--white);text-decoration:none;}
+  .nav-back{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:.5rem;}
+  .nav-back:hover{color:var(--white);}
+  .project-hero{min-height:80vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3rem 5rem;position:relative;overflow:hidden;background:var(--black);}
+  .project-hero-bg{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,14,14,1) 0%,rgba(14,14,14,0.15) 55%,rgba(14,14,14,0.5) 100%);z-index:1;}
+  .project-hero-img-wrap{position:absolute;inset:0;z-index:0;}
+  .project-hero-img{width:100%;height:100%;object-fit:cover;opacity:0.6;}
+  .project-hero-content{position:relative;z-index:2;}
+  .project-num{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--grey);margin-bottom:.8rem;}
+  .project-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(4rem,9vw,9rem);line-height:.9;text-transform:uppercase;color:var(--white);margin-bottom:2rem;}
+  .project-tags{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2rem;}
+  .tag{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--grey-light);border:1px solid #2a2a2a;padding:.35rem .9rem;}
+  .project-content{max-width:1400px;margin:0 auto;padding:6rem 3rem;}
+  .project-intro{display:grid;grid-template-columns:1fr 1.6fr;gap:6rem;align-items:start;margin-bottom:7rem;padding-bottom:5rem;border-bottom:1px solid #1e1e1e;}
+  .project-intro-label{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--grey);margin-bottom:1.5rem;}
+  .project-intro-heading{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(1.8rem,3vw,3rem);text-transform:uppercase;line-height:.95;}
+  .project-intro-heading em{font-weight:300;font-style:italic;color:var(--grey);}
+  .project-intro-meta{display:flex;flex-direction:column;gap:1.5rem;margin-top:2.5rem;}
+  .meta-label{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--grey);margin-bottom:.2rem;}
+  .meta-value{font-size:.85rem;font-weight:300;color:var(--grey-light);}
+  .project-intro-body{font-size:.95rem;font-weight:300;line-height:1.85;color:var(--grey-light);}
+  .project-intro-body p+p{margin-top:1.4rem;}
+  .img-full{width:100%;aspect-ratio:16/7;overflow:hidden;margin-bottom:1.5rem;background:#111;}
+  .img-full img{width:100%;height:100%;object-fit:cover;display:block;}
+  .img-duo{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;}
+  .img-duo-item{aspect-ratio:4/3;overflow:hidden;background:#111;}
+  .img-duo-item img{width:100%;height:100%;object-fit:cover;display:block;}
+  .img-caption{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);margin-bottom:5rem;padding-top:.8rem;border-top:1px solid #1a1a1a;}
+  .project-section{margin-bottom:6rem;}
+  .project-section-label{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--grey);margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid #1e1e1e;}
+  .project-section-heading{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(1.5rem,2.5vw,2.5rem);text-transform:uppercase;line-height:.95;margin-bottom:1.8rem;}
+  .project-section-body{font-size:.95rem;font-weight:300;line-height:1.85;color:var(--grey-light);max-width:720px;}
+  .project-section-body p+p{margin-top:1.2rem;}
+  .project-next{border-top:1px solid #1e1e1e;padding:4rem 3rem;display:flex;justify-content:space-between;align-items:center;background:#0a0a0a;}
+  .next-label{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--grey);}
+  .next-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(1.5rem,3vw,3rem);text-transform:uppercase;color:var(--white);margin-top:.5rem;}
+  .next-arrow{font-size:2rem;color:var(--grey);text-decoration:none;transition:color .2s,transform .2s;}
+  .next-arrow:hover{color:var(--white);transform:translateX(6px);}
+  .fade-in{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+  @media(max-width:900px){.project-intro{grid-template-columns:1fr;gap:3rem;}.img-duo{grid-template-columns:1fr;}nav{padding:1.2rem 1.5rem;}.project-hero,.project-content,.project-next{padding-left:1.5rem;padding-right:1.5rem;}}
+  @media(max-width:600px){.project-title{font-size:clamp(3rem,14vw,6rem);}}
 </style>
 </head>
 <body>
-
-<!-- NAV -->
 <nav>
   <a href="../index.html" class="nav-logo">Pablo Martí Villalba</a>
   <a href="../index.html#projects" class="nav-back">← Back to Work</a>
 </nav>
 
-<!-- PROJECT HERO -->
 <section class="project-hero">
   <div class="project-hero-img-wrap">
-    <!--
-    ═══════════════════════════════════════════════════════
-    IMAGEN DE CABECERA — instrucciones:
-    1. Pon tu imagen en la carpeta "images/" con el nombre: 01-leafscapes-hero.jpg
-    2. Borra el div.project-hero-img-placeholder de abajo
-    3. Añade esta línea justo aquí:
-       <img src="../images/01-leafscapes-hero.jpg" alt="Leafscapes" class="project-hero-img">
-    ═══════════════════════════════════════════════════════
-    -->
-    <div class="project-hero-img-placeholder">
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="white" stroke-width="1.5"/><path d="M4 36l12-12 8 8 8-10 12 14" stroke="white" stroke-width="1.5" stroke-linejoin="round"/></svg>
-      <span>images/01-leafscapes-hero.jpg</span>
-    </div>
+    <img src="../images/01-leafscapes-hero.jpg" alt="Leafscapes — wooden canopy structures" class="project-hero-img">
   </div>
   <div class="project-hero-bg"></div>
-
   <div class="project-hero-content">
     <div class="project-num">Project 01</div>
-    <!-- TÍTULO: cámbialo si quieres un título diferente -->
     <h1 class="project-title">Leafscapes</h1>
-    <!-- TAGS: palabras clave del proyecto, añade o quita las que quieras -->
-    <div class="project-tags">
-      <span class="tag">Parametric Design</span>
-      <span class="tag">Grasshopper</span>
-      <span class="tag">Canopy Structures</span>
-      <span class="tag">Form-Finding</span>
-      <span class="tag"><!-- TAG EXTRA → reemplaza este texto --></span>
-    </div>
+    <div class="project-tags"><span class="tag">Parametric Design</span><span class="tag">Grasshopper</span><span class="tag">Canopy Structures</span><span class="tag">Form-Finding</span><span class="tag">Karamba</span></div>
   </div>
 </section>
 
-<!-- MAIN CONTENT -->
 <div class="project-content">
-
-  <!-- INTRO: descripción general + metadatos -->
   <div class="project-intro fade-in">
     <div>
       <div class="project-intro-label">Overview</div>
-      <h2 class="project-intro-heading">
-        Parametric<br>
-        <em>geometries for</em><br>
-        Organic Canopies
-        <!-- TÍTULO INTRO: cambia este texto -->
-      </h2>
-      <div class="project-intro-meta">
-        <!-- METADATOS: año, empresa, herramientas usadas, etc. -->
-        <div class="meta-item">
-          <div class="meta-label">Year</div>
-          <div class="meta-value"><!-- ej: 2024 --></div>
-        </div>
-        <div class="meta-item">
-          <div class="meta-label">Context</div>
-          <div class="meta-value"><!-- ej: IDOM Architecture / Academic --></div>
-        </div>
-        <div class="meta-item">
-          <div class="meta-label">Tools</div>
-          <div class="meta-value"><!-- ej: Rhinoceros, Grasshopper, Kangaroo --></div>
-        </div>
-        <div class="meta-item">
-          <div class="meta-label">Role</div>
-          <div class="meta-value"><!-- ej: Lead Computational Designer --></div>
-        </div>
-      </div>
+      <h2 class="project-intro-heading">Parametric Geometries<br><em>for</em><br>Organic Canopies</h2>
+      <div class="project-intro-meta"><div class="meta-item"><div class="meta-label">Year</div><div class="meta-value">2024</div></div><div class="meta-item"><div class="meta-label">Context</div><div class="meta-value">IDOM Architecture</div></div><div class="meta-item"><div class="meta-label">Tools</div><div class="meta-value">Rhinoceros, Grasshopper, Kangaroo, Karamba</div></div><div class="meta-item"><div class="meta-label">Role</div><div class="meta-value">Computational Designer</div></div></div>
     </div>
-
-    <div class="project-intro-body">
-      <!-- TEXTO DE INTRODUCCIÓN: 2-4 párrafos describiendo el proyecto -->
-      <p><!-- Párrafo 1: contexto del proyecto, qué problema resuelve, qué lo hace especial --></p>
-      <p><!-- Párrafo 2: proceso o metodología --></p>
-      <p><!-- Párrafo 3 (opcional): resultados o conclusiones --></p>
-    </div>
+    <div class="project-intro-body"><p>Leafscapes was born from the challenge of merging performance and expression into a single architectural gesture. A series of leaf-shaped canopies were parametrised to provide solar protection and embrace the building in an organic movement that blurs the boundary between nature and structure.</p><p>The design demanded a careful balance: geometries had to mirror natural disorder while remaining typologically controlled, structurally feasible and buildable at large scale. Size and bi-directional curvature were defined as the primary generative variables, allowing an interactive tool to emerge — one that lets designers explore typologies, position canopies freely and test configurations in real time.</p><p>Each configuration was automatically translated into structural standards and loading analysis models, enabling architects and engineers to collaborate fluidly and receive instant feedback on structural feasibility — turning structure into a space for exploration.</p></div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
-       BLOQUE DE IMÁGENES 1 — imagen a todo ancho
-       Instrucciones:
-       1. Pon la imagen en images/01-leafscapes-01.jpg
-       2. Dentro del div.img-full, borra el div.img-placeholder
-       3. Añade: <img src="../images/01-leafscapes-01.jpg" alt="descripción" >
-  ════════════════════════════════════════════════════════ -->
-  <div class="img-full fade-in">
-    <div class="img-placeholder">
-      <svg width="36" height="36" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="#444" stroke-width="1.5"/><path d="M4 36l12-12 8 8 8-10 12 14" stroke="#444" stroke-width="1.5" stroke-linejoin="round"/></svg>
-      <span>Imagen a todo ancho<br>images/01-leafscapes-01.jpg</span>
-    </div>
-  </div>
-  <div class="img-caption fade-in"><!-- Pie de foto: ej. "Canopy geometry exploration — Grasshopper definition output" --></div>
-
-  <!-- ══════════════════════════════════════════════════════
-       SECCIÓN DE TEXTO 1
-  ════════════════════════════════════════════════════════ -->
+  <div class="img-full fade-in"><img src="../images/01-leafscapes-01.jpg" alt="Leaf geometry diagrams"></div>
+  <div class="img-caption fade-in">Veinwork, seed and growth — deconstructing geometry as generative rules · Size and bi-directional curvature as the primary design variables</div>
   <div class="project-section fade-in">
-    <div class="project-section-label"><!-- Etiqueta: ej. "Design Process" --></div>
-    <h2 class="project-section-heading"><!-- Título sección: ej. "Form-Finding Strategy" --></h2>
-    <div class="project-section-body">
-      <p><!-- Texto explicativo de esta sección --></p>
-      <p><!-- Párrafo adicional si necesitas --></p>
-    </div>
+    <div class="project-section-label">Design Rules</div>
+    <h2 class="project-section-heading">From Vein to Canopy</h2>
+    <div class="project-section-body"><p>The project began by deconstructing geometry: studying the veinwork of a leaf, from seed to growth. These rules were translated into parametric logic — size and bi-directional curvature became the primary design variables governing both the formal identity and the structural character of each element.</p><p>Variations were generated by combining these two parameters across a typological range, producing a family of canopy forms that were formally diverse yet structurally consistent.</p></div>
   </div>
-
-  <!-- ══════════════════════════════════════════════════════
-       BLOQUE DE IMÁGENES 2 — dos imágenes lado a lado
-       Para cada una: borra el img-placeholder y añade un <img src="..." >
-  ════════════════════════════════════════════════════════ -->
+  <div class="img-full fade-in"><img src="../images/01-leafscapes-02.jpg" alt="Organic layouts and Grasshopper definition"></div>
+  <div class="img-caption fade-in">Organic layouts — compositions shading the promenades · Interactive tool for position, orientation and typology exploration</div>
+  <div class="project-section fade-in">
+    <div class="project-section-label">Structural Integration</div>
+    <h2 class="project-section-heading">Organic Layouts</h2>
+    <div class="project-section-body"><p>With geometry under control, an interactive tool was developed to let designers play with different typologies, adjusting their position and orientation in space. Clusters of canopies could dominate the building while shaping shaded promenades that enhanced the natural setting.</p><p>What began as a structural necessity soon became a design opportunity. A refined version of the tool allowed designers to position and tilt columns freely, while a script translated each configuration into structural standards and loading analysis models — turning the structural process into a space for exploration.</p></div>
+  </div>
   <div class="img-duo fade-in">
-    <div class="img-duo-item">
-      <div class="img-placeholder">
-        <svg width="28" height="28" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="#444" stroke-width="1.5"/><path d="M4 36l12-12 8 8 8-10 12 14" stroke="#444" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        <span>images/01-leafscapes-02.jpg</span>
-      </div>
-    </div>
-    <div class="img-duo-item">
-      <div class="img-placeholder">
-        <svg width="28" height="28" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="#444" stroke-width="1.5"/><path d="M4 36l12-12 8 8 8-10 12 14" stroke="#444" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        <span>images/01-leafscapes-03.jpg</span>
-      </div>
-    </div>
+    <div class="img-duo-item"><img src="../images/01-leafscapes-03.jpg" alt="Wooden canopy render left"></div>
+    <div class="img-duo-item"><img src="../images/01-leafscapes-04.jpg" alt="Wooden canopy render right"></div>
   </div>
-  <div class="img-caption fade-in"><!-- Pie de foto para las dos imágenes --></div>
+  <div class="img-caption fade-in">Structural verification renders — wooden canopy structures in context · Rooted supports anchoring for unobstructed and functional layouts</div>
+</div>
 
-  <!-- ══════════════════════════════════════════════════════
-       SECCIÓN DE TEXTO 2 — repite este bloque las veces que necesites
-  ════════════════════════════════════════════════════════ -->
-  <div class="project-section fade-in">
-    <div class="project-section-label"><!-- ej. "Technical Development" --></div>
-    <h2 class="project-section-heading"><!-- ej. "Structural Logic" --></h2>
-    <div class="project-section-body">
-      <p><!-- Texto --></p>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════════════════
-       BLOQUE DE IMÁGENES 3 — tres imágenes
-  ════════════════════════════════════════════════════════ -->
-  <div class="img-trio fade-in">
-    <div class="img-trio-item">
-      <div class="img-placeholder">
-        <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="#444" stroke-width="1.5"/><path d="M4 36l12-12 8 8 8-10 12 14" stroke="#444" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        <span>images/01-leafscapes-04.jpg</span>
-      </div>
-    </div>
-    <div class="img-trio-item">
-      <div class="img-placeholder">
-        <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="#444" stroke-width="1.5"/><path d="M4 36l12-12 8 8 8-10 12 14" stroke="#444" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        <span>images/01-leafscapes-05.jpg</span>
-      </div>
-    </div>
-    <div class="img-trio-item">
-      <div class="img-placeholder">
-        <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="#444" stroke-width="1.5"/><path d="M4 36l12-12 8 8 8-10 12 14" stroke="#444" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        <span>images/01-leafscapes-06.jpg</span>
-      </div>
-    </div>
-  </div>
-  <div class="img-caption fade-in"><!-- Pie de foto --></div>
-
-  <!-- ══════════════════════════════════════════════════════
-       SECCIÓN FINAL (opcional: resultados, conclusiones)
-  ════════════════════════════════════════════════════════ -->
-  <div class="project-section fade-in">
-    <div class="project-section-label"><!-- ej. "Outcomes" --></div>
-    <h2 class="project-section-heading"><!-- ej. "Results & Impact" --></h2>
-    <div class="project-section-body">
-      <p><!-- Texto --></p>
-    </div>
-  </div>
-
-</div><!-- end project-content -->
-
-<!-- SIGUIENTE PROYECTO -->
 <div class="project-next">
   <div>
     <div class="next-label">Next Project</div>
@@ -421,16 +113,9 @@
   <a href="02-adaptive-skins.html" class="next-arrow">→</a>
 </div>
 
-<script>
-const faders = document.querySelectorAll('.fade-in');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-}, { threshold: 0.06 });
-faders.forEach(el => observer.observe(el));
-// First hero content appears immediately
-document.querySelectorAll('.project-hero-content *').forEach((el, i) => {
-  setTimeout(() => el.style.opacity = '1', 200 + i * 100);
-});
-</script>
+<script>const faders=document.querySelectorAll('.fade-in');
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:0.06});
+faders.forEach(el=>observer.observe(el));
+document.querySelectorAll('.project-hero-content *').forEach((el,i)=>{setTimeout(()=>el.classList.add('visible'),200+i*80);});</script>
 </body>
 </html>

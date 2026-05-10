@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Triangular Dreams — Pablo Marti Villalba</title>
+<title>Triangular Dreams — Pablo Martí Villalba</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300;1,400&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <style>
@@ -13,14 +13,12 @@
   body{font-family:'Barlow',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
   nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 3rem;background:rgba(14,14,14,0.92);backdrop-filter:blur(12px);border-bottom:1px solid #1f1f1f;}
   .nav-logo{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--white);text-decoration:none;}
-  .nav-back{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color .2s;}
+  .nav-back{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:.5rem;}
   .nav-back:hover{color:var(--white);}
-  .project-hero{min-height:75vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3rem 5rem;position:relative;overflow:hidden;background:var(--black);}
-  .project-hero-bg{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,14,14,1) 0%,rgba(14,14,14,0.3) 60%,rgba(14,14,14,0.6) 100%);z-index:1;}
-  .project-hero-img-wrap{position:absolute;inset:0;z-index:0;background:#111;display:flex;align-items:center;justify-content:center;}
-  .project-hero-img{width:100%;height:100%;object-fit:cover;opacity:0.55;}
-  .project-hero-img-placeholder{display:flex;flex-direction:column;align-items:center;gap:1rem;opacity:.15;}
-  .project-hero-img-placeholder span{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--white);}
+  .project-hero{min-height:80vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3rem 5rem;position:relative;overflow:hidden;background:var(--black);}
+  .project-hero-bg{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,14,14,1) 0%,rgba(14,14,14,0.15) 55%,rgba(14,14,14,0.5) 100%);z-index:1;}
+  .project-hero-img-wrap{position:absolute;inset:0;z-index:0;}
+  .project-hero-img{width:100%;height:100%;object-fit:cover;opacity:0.6;}
   .project-hero-content{position:relative;z-index:2;}
   .project-num{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--grey);margin-bottom:.8rem;}
   .project-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(4rem,9vw,9rem);line-height:.9;text-transform:uppercase;color:var(--white);margin-bottom:2rem;}
@@ -36,17 +34,12 @@
   .meta-value{font-size:.85rem;font-weight:300;color:var(--grey-light);}
   .project-intro-body{font-size:.95rem;font-weight:300;line-height:1.85;color:var(--grey-light);}
   .project-intro-body p+p{margin-top:1.4rem;}
-  .img-full{width:100%;aspect-ratio:16/7;overflow:hidden;margin-bottom:1.5rem;background:#111;display:flex;align-items:center;justify-content:center;}
+  .img-full{width:100%;aspect-ratio:16/7;overflow:hidden;margin-bottom:1.5rem;background:#111;}
   .img-full img{width:100%;height:100%;object-fit:cover;display:block;}
   .img-duo{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;}
-  .img-duo-item{aspect-ratio:4/3;overflow:hidden;background:#111;display:flex;align-items:center;justify-content:center;}
+  .img-duo-item{aspect-ratio:4/3;overflow:hidden;background:#111;}
   .img-duo-item img{width:100%;height:100%;object-fit:cover;display:block;}
-  .img-trio{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;}
-  .img-trio-item{aspect-ratio:3/4;overflow:hidden;background:#111;display:flex;align-items:center;justify-content:center;}
-  .img-trio-item img{width:100%;height:100%;object-fit:cover;display:block;}
   .img-caption{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);margin-bottom:5rem;padding-top:.8rem;border-top:1px solid #1a1a1a;}
-  .img-placeholder{width:100%;height:100%;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;border:1px dashed #222;}
-  .img-placeholder span{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#333;text-align:center;padding:0 1rem;}
   .project-section{margin-bottom:6rem;}
   .project-section-label{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--grey);margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid #1e1e1e;}
   .project-section-heading{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(1.5rem,2.5vw,2.5rem);text-transform:uppercase;line-height:.95;margin-bottom:1.8rem;}
@@ -59,149 +52,55 @@
   .next-arrow:hover{color:var(--white);transform:translateX(6px);}
   .fade-in{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease;}
   .fade-in.visible{opacity:1;transform:translateY(0);}
-  @media(max-width:900px){.project-intro{grid-template-columns:1fr;gap:3rem;}.img-trio{grid-template-columns:1fr 1fr;}nav,.project-hero,.project-content,.project-next{padding-left:1.5rem;padding-right:1.5rem;}}
-  @media(max-width:600px){.img-duo,.img-trio{grid-template-columns:1fr;}.project-title{font-size:clamp(3rem,14vw,6rem);}}
+  @media(max-width:900px){.project-intro{grid-template-columns:1fr;gap:3rem;}.img-duo{grid-template-columns:1fr;}nav{padding:1.2rem 1.5rem;}.project-hero,.project-content,.project-next{padding-left:1.5rem;padding-right:1.5rem;}}
+  @media(max-width:600px){.project-title{font-size:clamp(3rem,14vw,6rem);}}
 </style>
 </head>
 <body>
-
 <nav>
-  <a href="../index.html" class="nav-logo">Pablo Marti Villalba</a>
-  <a href="../index.html#projects" class="nav-back">&#8592; Back to Work</a>
+  <a href="../index.html" class="nav-logo">Pablo Martí Villalba</a>
+  <a href="../index.html#projects" class="nav-back">← Back to Work</a>
 </nav>
 
 <section class="project-hero">
   <div class="project-hero-img-wrap">
-    <!--
-    IMAGEN DE CABECERA:
-    1. Guarda la imagen en la carpeta images/ con este nombre: 05-triangular-dreams-hero.jpg
-    2. Borra el div.project-hero-img-placeholder de abajo
-    3. Escribe aqui: <img src="../images/05-triangular-dreams-hero.jpg" alt="Triangular Dreams" class="project-hero-img">
-    -->
-    <div class="project-hero-img-placeholder">
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="white" stroke-width="1.5"/><path d="M4 36l12-12 8 8 8-10 12 14" stroke="white" stroke-width="1.5" stroke-linejoin="round"/></svg>
-      <span>images/05-triangular-dreams-hero.jpg</span>
-    </div>
+    <img src="../images/05-triangular-dreams-hero.jpg" alt="Triangular Dreams — teal triangulated mesh structures" class="project-hero-img">
   </div>
   <div class="project-hero-bg"></div>
   <div class="project-hero-content">
     <div class="project-num">Project 05</div>
     <h1 class="project-title">Triangular Dreams</h1>
-    <div class="project-tags">
-      <span class="tag">Form-Finding</span>
-      <span class="tag">Triangulated Mesh</span>
-      <span class="tag">Kangaroo</span>
-      <span class="tag">Fabrication</span>
-      <span class="tag"><!-- TAG EXTRA --></span>
-    </div>
+    <div class="project-tags"><span class="tag">Form-Finding</span><span class="tag">Algorithmic Design</span><span class="tag">Modular Structure</span><span class="tag">Python</span><span class="tag">Randomisation</span></div>
   </div>
 </section>
 
 <div class="project-content">
-
   <div class="project-intro fade-in">
     <div>
       <div class="project-intro-label">Overview</div>
-      <h2 class="project-intro-heading">Automated Form-Finding<br><em>for a</em><br>Modular Hall</h2>
-      <div class="project-intro-meta">
-        <div class="meta-item"><div class="meta-label">Year</div><div class="meta-value"><!-- ej: 2024 --></div></div>
-        <div class="meta-item"><div class="meta-label">Context</div><div class="meta-value"><!-- ej: IDOM Architecture --></div></div>
-        <div class="meta-item"><div class="meta-label">Tools</div><div class="meta-value"><!-- ej: Rhinoceros, Grasshopper --></div></div>
-        <div class="meta-item"><div class="meta-label">Role</div><div class="meta-value"><!-- ej: Lead Computational Designer --></div></div>
-      </div>
+      <h2 class="project-intro-heading">Automated Form-Finding<br><em>for a</em><br>Modular Communication Hall</h2>
+      <div class="project-intro-meta"><div class="meta-item"><div class="meta-label">Year</div><div class="meta-value">2022</div></div><div class="meta-item"><div class="meta-label">Context</div><div class="meta-value">University of Bath — Academic Project</div></div><div class="meta-item"><div class="meta-label">Tools</div><div class="meta-value">Rhinoceros, Grasshopper, Python</div></div><div class="meta-item"><div class="meta-label">Role</div><div class="meta-value">Academic Design Research</div></div></div>
     </div>
-    <div class="project-intro-body">
-      <p><!-- Parrafo 1: contexto del proyecto, que lo hace especial --></p>
-      <p><!-- Parrafo 2: proceso o metodologia --></p>
-      <p><!-- Parrafo 3 opcional: resultados o conclusiones --></p>
-    </div>
+    <div class="project-intro-body"><p>Triangular Dreams envisions an experimental communication hall in Korea, where movement becomes experience. Pedestrian flow is guided upwards through a sequence of platforms, culminating in an ascent through a monumental oculus. Geometry leads the way: an infinite prism composed of equilateral triangles, forming an organic structural system that evokes the branching game of nature.</p><p>At the heart of the proposal lies a parametric script driven by a set of variables — dimensions, angles, number of communication pathways — and a randomisation algorithm. The resulting geometry was not sculpted manually, but emerged from a flexible yet controlled logic, allowing complexity to unfold within a framework of clarity.</p><p>The design also embraces modularity, with a repeatable building unit, making the overall geometry eventually feasible in real-world application — where form, function and feeling converge in a vertical journey towards the sky.</p></div>
   </div>
 
-  <!-- ═══════════════════════════════════════════
-       IMAGEN ANCHO COMPLETO
-       Archivo: images/05-triangular-dreams-01.jpg
-       Paso: borra el div.img-placeholder de abajo y escribe:
-       <img src="../images/05-triangular-dreams-01.jpg" alt="descripcion">
-  ═══════════════════════════════════════════ -->
-  <div class="img-full fade-in">
-    <div class="img-placeholder">
-      <svg width="36" height="36" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="#444" stroke-width="1.5"/><path d="M4 36l12-12 8 8 8-10 12 14" stroke="#444" stroke-width="1.5" stroke-linejoin="round"/></svg>
-      <span>Imagen ancho completo &mdash; images/05-triangular-dreams-01.jpg</span>
-    </div>
-  </div>
-  <div class="img-caption fade-in"><!-- Pie de foto: describe la imagen --></div>
-
+  <div class="img-full fade-in"><img src="../images/05-triangular-dreams-01.jpg" alt="Triangulated mesh structure variations"></div>
+  <div class="img-caption fade-in">Triangulated mesh family — the branching game of nature as parametric logic · Each form emerging from dimensions, angles and randomisation variables</div>
   <div class="project-section fade-in">
-    <div class="project-section-label"><!-- Etiqueta: ej. Design Process --></div>
-    <h2 class="project-section-heading"><!-- Titulo: ej. Form-Finding Strategy --></h2>
-    <div class="project-section-body">
-      <p><!-- Texto de esta seccion --></p>
-    </div>
+    <div class="project-section-label">The Algorithm</div>
+    <h2 class="project-section-heading">Infinite Generation</h2>
+    <div class="project-section-body"><p>The core of the system was an infinite generation algorithm, where each press of a button produced a new iteration of the design. Despite the randomness, the process remained fully controlled — boundaries were defined for each key variable, and design outputs were linked to an analysis tool that evaluated performance, generating a pool of iterations to learn from.</p><p>Each iteration was evaluated against structural and spatial performance criteria, building a dataset of possibilities from which the most promising configurations could be identified and refined — design as a process of discovery.</p></div>
   </div>
-
-  <!-- ═══════════════════════════════════════════
-       DOS IMAGENES LADO A LADO
-       Archivos: images/05-triangular-dreams-02.jpg y 05-triangular-dreams-03.jpg
-       Para cada una: borra img-placeholder y escribe <img src="../images/...">
-  ═══════════════════════════════════════════ -->
   <div class="img-duo fade-in">
-    <div class="img-duo-item">
-      <div class="img-placeholder">
-        <svg width="28" height="28" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="#444" stroke-width="1.5"/><path d="M4 36l12-12 8 8 8-10 12 14" stroke="#444" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        <span>images/05-triangular-dreams-02.jpg</span>
-      </div>
-    </div>
-    <div class="img-duo-item">
-      <div class="img-placeholder">
-        <svg width="28" height="28" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="#444" stroke-width="1.5"/><path d="M4 36l12-12 8 8 8-10 12 14" stroke="#444" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        <span>images/05-triangular-dreams-03.jpg</span>
-      </div>
-    </div>
+    <div class="img-duo-item"><img src="../images/05-triangular-dreams-02.jpg" alt="Close-up triangulated mesh texture"></div>
+    <div class="img-duo-item"><img src="../images/05-triangular-dreams-03.jpg" alt="Grasshopper definition and parallel coordinate analysis"></div>
   </div>
-  <div class="img-caption fade-in"><!-- Pie de foto --></div>
-
+  <div class="img-caption fade-in">Left: structure detail — equilateral triangles as the repeatable building unit · Right: parallel coordinate analysis of design iterations across structural and spatial performance metrics</div>
   <div class="project-section fade-in">
-    <div class="project-section-label"><!-- ej. Technical Development --></div>
-    <h2 class="project-section-heading"><!-- ej. Structural Logic --></h2>
-    <div class="project-section-body">
-      <p><!-- Texto --></p>
-    </div>
+    <div class="project-section-label">Structural Logic</div>
+    <h2 class="project-section-heading">Modularity and Buildability</h2>
+    <div class="project-section-body"><p>Despite its organic appearance, the geometry is rooted in a single repeatable building unit: an equilateral triangle. This modularity not only makes the structure legible from the inside — where the triangulated pattern creates a striking visual field — but also ensures the overall geometry remains feasible for real-world construction, with standardised connections and a manageable number of unique elements.</p><p>The infinite generation algorithm demonstrated that controlled randomness and structural discipline are not opposites — but partners in a design process that produces genuinely novel results from a clearly defined set of rules.</p></div>
   </div>
-
-  <!-- ═══════════════════════════════════════════
-       TRES IMAGENES
-       Archivos: 05-triangular-dreams-04.jpg, -05.jpg, -06.jpg
-  ═══════════════════════════════════════════ -->
-  <div class="img-trio fade-in">
-    <div class="img-trio-item">
-      <div class="img-placeholder">
-        <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="#444" stroke-width="1.5"/><path d="M4 36l12-12 8 8 8-10 12 14" stroke="#444" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        <span>images/05-triangular-dreams-04.jpg</span>
-      </div>
-    </div>
-    <div class="img-trio-item">
-      <div class="img-placeholder">
-        <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="#444" stroke-width="1.5"/><path d="M4 36l12-12 8 8 8-10 12 14" stroke="#444" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        <span>images/05-triangular-dreams-05.jpg</span>
-      </div>
-    </div>
-    <div class="img-trio-item">
-      <div class="img-placeholder">
-        <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="#444" stroke-width="1.5"/><path d="M4 36l12-12 8 8 8-10 12 14" stroke="#444" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        <span>images/05-triangular-dreams-06.jpg</span>
-      </div>
-    </div>
-  </div>
-  <div class="img-caption fade-in"><!-- Pie de foto --></div>
-
-  <div class="project-section fade-in">
-    <div class="project-section-label"><!-- ej. Outcomes --></div>
-    <h2 class="project-section-heading"><!-- ej. Results and Impact --></h2>
-    <div class="project-section-body">
-      <p><!-- Texto --></p>
-    </div>
-  </div>
-
 </div>
 
 <div class="project-next">
@@ -209,13 +108,12 @@
     <div class="next-label">Next Project</div>
     <div class="next-title">Reimagining</div>
   </div>
-  <a href="06-reimagining.html" class="next-arrow">&#x2192;</a>
+  <a href="06-reimagining.html" class="next-arrow">→</a>
 </div>
 
-<script>
-const faders=document.querySelectorAll('.fade-in');
+<script>const faders=document.querySelectorAll('.fade-in');
 const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:0.06});
 faders.forEach(el=>observer.observe(el));
-</script>
+document.querySelectorAll('.project-hero-content *').forEach((el,i)=>{setTimeout(()=>el.classList.add('visible'),200+i*80);});</script>
 </body>
 </html>
