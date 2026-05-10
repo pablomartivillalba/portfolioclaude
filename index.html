@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pablo Martí Villalba — Computational Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300;1,400&family=Barlow+Condensed:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0e0e0e;
+    --white: #f5f5f0;
+    --grey: #6e6e6e;
+    --grey-light: #afafaf;
+    --section-alt: #111214;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem 3rem;
+    background: rgba(14,14,14,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #1f1f1f;
+  }
+  .nav-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: .8rem;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--white); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .72rem; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--grey); text-decoration: none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-contact a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .72rem; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--white); text-decoration: none;
+    border: 1px solid #333; padding: .45rem 1.1rem;
+    transition: border-color .2s;
+  }
+  .nav-contact a:hover { border-color: var(--white); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 3rem 5rem;
+    position: relative; overflow: hidden;
+    background: var(--black);
+  }
+
+  /* Parametric SVG texture overlay */
+  #hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='800' viewBox='0 0 800 800'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='50%25' r='70%25'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='0'/%3E%3Cstop offset='100%25' stop-color='%23000000' stop-opacity='0.6'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='800' height='800' fill='url(%23g)'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0;
+  }
+
+  /* Parametric grid lines */
+  #hero-canvas {
+    position: absolute;
+    inset: 0; width: 100%; height: 100%;
+    z-index: 0; opacity: 0.18;
+  }
+
+  #hero > *:not(#hero-canvas) { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .78rem; font-weight: 600;
+    letter-spacing: .28em; text-transform: uppercase;
+    color: var(--grey); margin-bottom: 1.2rem;
+  }
+  .hero-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(4rem, 10vw, 10rem);
+    line-height: .92; text-transform: uppercase;
+    color: var(--white); margin-bottom: 2rem;
+  }
+  .hero-name span { display: block; }
+  .hero-name .light { font-weight: 300; color: var(--grey); }
+  .hero-desc {
+    max-width: 540px; font-size: 1rem;
+    font-weight: 300; line-height: 1.7;
+    color: var(--grey-light); margin-bottom: 3rem;
+  }
+  .hero-ctas { display: flex; gap: 1.2rem; align-items: center; }
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .78rem; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--black); background: var(--white);
+    text-decoration: none; padding: .85rem 2.2rem;
+    transition: opacity .2s;
+  }
+  .btn-primary:hover { opacity: .85; }
+  .btn-ghost {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .78rem; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--grey-light); text-decoration: none;
+    border-bottom: 1px solid #444; padding-bottom: 2px;
+    transition: color .2s, border-color .2s;
+  }
+  .btn-ghost:hover { color: var(--white); border-color: var(--white); }
+
+  /* ── SECTION SYSTEM ── */
+  /* Each section has a clear top border + label bar */
+  .portfolio-section {
+    padding: 7rem 3rem;
+    position: relative;
+  }
+
+  /* Alternating backgrounds — more distinct */
+  .portfolio-section:nth-child(odd)  { background: #0e0e0e; }
+  .portfolio-section:nth-child(even) { background: #141618; }
+
+  /* Bold top-border accent line per section */
+  .portfolio-section::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0; left: 3rem; right: 3rem;
+    height: 1px;
+    background: linear-gradient(90deg, #3a3a3a 0%, transparent 100%);
+  }
+
+  /* Section header bar */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #222;
+  }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .68rem; font-weight: 700;
+    letter-spacing: .35em; text-transform: uppercase;
+    color: var(--grey);
+  }
+  .section-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .68rem; font-weight: 700;
+    letter-spacing: .2em; color: #2a2a2a;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start;
+  }
+  .about-heading {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    line-height: .95; text-transform: uppercase;
+  }
+  .about-heading em { font-style: italic; font-weight: 300; color: var(--grey); }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem; margin-top: 3rem;
+  }
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 2.4rem;
+    color: var(--white); line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .65rem; font-weight: 600;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--grey); margin-top: .3rem;
+  }
+  .about-body {
+    font-size: .95rem; font-weight: 300;
+    line-height: 1.8; color: var(--grey-light);
+  }
+  .about-body p + p { margin-top: 1.2rem; }
+
+  /* ── PROJECTS GRID ── */
+  .projects-intro {
+    max-width: 700px; margin-bottom: 4rem;
+  }
+  .projects-intro h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 4vw, 4rem);
+    text-transform: uppercase; line-height: .95;
+    margin-bottom: 1rem;
+  }
+  .projects-intro p {
+    font-size: .9rem; font-weight: 300;
+    color: var(--grey-light); line-height: 1.7;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: #1a1a1a;
+    border: 1px solid #1a1a1a;
+  }
+
+  .project-card {
+    background: var(--black);
+    text-decoration: none;
+    display: flex; flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: background .25s;
+    aspect-ratio: 4/3;
+  }
+  .project-card:hover { background: #141414; }
+
+  .project-thumb {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    position: absolute; inset: 0;
+    transition: transform .5s ease, opacity .3s;
+    opacity: 0.75;
+  }
+  .project-card:hover .project-thumb { transform: scale(1.03); opacity: 0.9; }
+
+  /* Placeholder shown when no image yet */
+  .project-thumb-placeholder {
+    position: absolute; inset: 0;
+    background: #151515;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .project-thumb-placeholder svg { opacity: .12; }
+
+  .project-card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,.92) 0%, rgba(10,10,10,.2) 55%, transparent 100%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 1.6rem;
+    z-index: 2;
+  }
+  .project-card-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .62rem; font-weight: 700;
+    letter-spacing: .25em; text-transform: uppercase;
+    color: var(--grey); margin-bottom: .4rem;
+  }
+  .project-card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 1.5rem;
+    text-transform: lowercase; color: var(--white);
+    line-height: 1; margin-bottom: .4rem;
+  }
+  .project-card-sub {
+    font-size: .75rem; font-weight: 300;
+    font-style: italic; color: var(--grey-light);
+    line-height: 1.3;
+  }
+  .project-card-arrow {
+    position: absolute; top: 1.4rem; right: 1.4rem;
+    font-size: .9rem; color: #333;
+    transition: color .2s, transform .2s;
+    z-index: 2;
+  }
+  .project-card:hover .project-card-arrow { color: var(--white); transform: translate(2px,-2px); }
+
+  /* ── EXPERIENCE ── */
+  .exp-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .exp-photo-col {}
+  .exp-photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter: grayscale(20%);
+  }
+
+  /* Photo placeholder */
+  .exp-photo-placeholder {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: #161616;
+    border: 1px dashed #2a2a2a;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: .8rem;
+  }
+  .exp-photo-placeholder span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .65rem; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: #333; text-align: center; padding: 0 1rem;
+  }
+
+  .exp-col-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+    text-transform: uppercase; line-height: .95;
+    margin-bottom: 2.5rem;
+  }
+  .exp-list { display: flex; flex-direction: column; gap: 2rem; }
+  .exp-item {}
+  .exp-role {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: .95rem;
+    text-transform: uppercase; letter-spacing: .06em;
+    color: var(--white); margin-bottom: .15rem;
+  }
+  .exp-company {
+    font-size: .85rem; font-weight: 400;
+    color: var(--grey-light);
+  }
+  .exp-location {
+    font-size: .78rem; font-weight: 300;
+    font-style: italic; color: var(--grey);
+  }
+  .exp-date {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .65rem; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: #444; margin-top: .35rem;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem 2.5rem;
+  }
+  .skill-col-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: .7rem;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--white); margin-bottom: 1rem;
+    padding-bottom: .6rem;
+    border-bottom: 1px solid #222;
+  }
+  .skill-list { list-style: none; display: flex; flex-direction: column; gap: .45rem; }
+  .skill-list li {
+    font-size: .82rem; font-weight: 300;
+    color: var(--grey-light); line-height: 1.4;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--white) !important;
+    color: var(--black);
+    min-height: 55vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  #contact::before { background: linear-gradient(90deg, #ccc 0%, transparent 100%); }
+  #contact .section-label { color: #999; }
+  #contact .section-num { color: #ddd; }
+  #contact .section-header { border-bottom-color: #ddd; }
+
+  .contact-heading {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(3rem, 8vw, 8rem);
+    line-height: .9; text-transform: uppercase;
+    color: var(--black); margin-bottom: 3rem;
+  }
+  .contact-heading em { font-weight: 300; font-style: italic; color: #999; }
+  .contact-links {
+    display: flex; gap: 3rem; align-items: center;
+    border-top: 1px solid #ddd; padding-top: 2rem;
+    flex-wrap: wrap;
+  }
+  .contact-link {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .8rem; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--black); text-decoration: none;
+    display: flex; align-items: center; gap: .6rem;
+    transition: opacity .2s;
+  }
+  .contact-link:hover { opacity: .4; }
+
+  footer {
+    background: var(--white); color: #bbb;
+    padding: 1.5rem 3rem;
+    border-top: 1px solid #e8e8e8;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .65rem; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .exp-layout { grid-template-columns: 1fr 1fr; }
+    .exp-photo-col { display: none; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .projects-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 700px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .portfolio-section { padding: 5rem 1.5rem; }
+    #hero { padding: 0 1.5rem 4rem; }
+    .about-grid, .exp-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .skills-grid, .projects-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Pablo Martí Villalba</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-contact"><a href="mailto:pamartivi@gmail.com">Get in touch</a></div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <p class="hero-eyebrow fade-in">Computational Design Portfolio</p>
+  <h1 class="hero-name fade-in">
+    <span>Pablo</span>
+    <span>Martí</span>
+    <span class="light">Villalba</span>
+  </h1>
+  <p class="hero-desc fade-in">
+    Civil and Architectural Engineer bridging innovative architectural expression with technical rigour. Parametric tools, performance-driven design, and a spirit of exploration.
+  </p>
+  <div class="hero-ctas fade-in">
+    <a href="#projects" class="btn-primary">View Work</a>
+    <a href="#contact" class="btn-ghost">Get in touch ↓</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="portfolio-section">
+  <div class="section-header">
+    <span class="section-label">About</span>
+    <span class="section-num">01</span>
+  </div>
+  <div class="about-grid">
+    <div>
+      <h2 class="about-heading fade-in">
+        Engineering<br>
+        <em>meets</em><br>
+        Expression
+      </h2>
+      <div class="about-stats fade-in">
+        <div><div class="stat-num">5+</div><div class="stat-label">Years experience</div></div>
+        <div><div class="stat-num">MEng</div><div class="stat-label">University of Bath</div></div>
+        <div><div class="stat-num">3</div><div class="stat-label">Countries worked</div></div>
+        <div><div class="stat-num">6</div><div class="stat-label">Project typologies</div></div>
+      </div>
+    </div>
+    <div class="about-body fade-in">
+      <p>With a background in Civil and Architectural Engineering, I approach computational design as a bridge between innovative architectural expression and technical rigour. From large-scale architectural projects to research-led explorations, I have consistently worked alongside architects and designers, bringing an engineering mindset to creative challenges.</p>
+      <p>With a strong focus on building performance, I combine professional and academic experience in supporting design decisions towards net-zero strategies, using parametric tools to deliver sustainable solutions without compromising architectural intent.</p>
+      <p>Currently at <strong>IDOM Architecture</strong> as Architectural Engineer and Generative Design Leader, working on large-scale projects including stadium roofs, façade optimisation, and urban masterplanning.</p>
+      <p style="margin-top:1.5rem; font-size:.8rem; color:#555; font-style:italic;">
+        🇪🇸 Spanish — Native &nbsp;·&nbsp; 🇬🇧 English — C2 Fluent &nbsp;·&nbsp; 🇫🇷 French — B1 Conversational
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="portfolio-section">
+  <div class="section-header">
+    <span class="section-label">Selected Work</span>
+    <span class="section-num">02</span>
+  </div>
+  <div class="projects-intro fade-in">
+    <h2>Computational<br>Projects</h2>
+    <p>A selection of work exploring the boundary between engineering logic and architectural ambition — developed at IDOM Architecture and during academic research at the University of Bath.</p>
+  </div>
+
+  <div class="projects-grid">
+
+    <a href="projects/01-leafscapes.html" class="project-card">
+      <!-- 
+        IMAGE INSTRUCTIONS — Project 01:
+        Replace the placeholder below with an <img> tag:
+        <img src="../images/01-leafscapes-thumb.jpg" alt="leafscapes" class="project-thumb">
+        Recommended: a square or landscape crop, any of the canopy renders from your PDF p.4–6
+      -->
+      <div class="project-thumb-placeholder">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="white" stroke-width="1.5"/><line x1="4" y1="16" x2="44" y2="16" stroke="white" stroke-width="1"/><line x1="16" y1="4" x2="16" y2="44" stroke="white" stroke-width="1"/></svg>
+      </div>
+      <div class="project-card-overlay">
+        <div class="project-card-num">01</div>
+        <div class="project-card-title">leafscapes</div>
+        <div class="project-card-sub">parametric geometries for organic canopy structures</div>
+      </div>
+      <span class="project-card-arrow">↗</span>
+    </a>
+
+    <a href="projects/02-adaptive-skins.html" class="project-card">
+      <!-- 
+        IMAGE INSTRUCTIONS — Project 02:
+        <img src="../images/02-adaptive-skins-thumb.jpg" alt="adaptive skins" class="project-thumb">
+        Recommended: one of the facade variation renders, PDF p.7–9
+      -->
+      <div class="project-thumb-placeholder">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="white" stroke-width="1.5"/><line x1="4" y1="16" x2="44" y2="16" stroke="white" stroke-width="1"/><line x1="16" y1="4" x2="16" y2="44" stroke="white" stroke-width="1"/></svg>
+      </div>
+      <div class="project-card-overlay">
+        <div class="project-card-num">02</div>
+        <div class="project-card-title">adaptive skins</div>
+        <div class="project-card-sub">generative design tools for performance-driven envelopes</div>
+      </div>
+      <span class="project-card-arrow">↗</span>
+    </a>
+
+    <a href="projects/03-structural-horizons.html" class="project-card">
+      <!-- 
+        IMAGE INSTRUCTIONS — Project 03:
+        <img src="../images/03-structural-horizons-thumb.jpg" alt="structural horizons" class="project-thumb">
+        Recommended: the stadium render or roof wireframe, PDF p.10–12
+      -->
+      <div class="project-thumb-placeholder">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="white" stroke-width="1.5"/><line x1="4" y1="16" x2="44" y2="16" stroke="white" stroke-width="1"/><line x1="16" y1="4" x2="16" y2="44" stroke="white" stroke-width="1"/></svg>
+      </div>
+      <div class="project-card-overlay">
+        <div class="project-card-num">03</div>
+        <div class="project-card-title">structural horizons</div>
+        <div class="project-card-sub">computational workflows for large-scale stadium roofs</div>
+      </div>
+      <span class="project-card-arrow">↗</span>
+    </a>
+
+    <a href="projects/04-living-cities.html" class="project-card">
+      <!-- 
+        IMAGE INSTRUCTIONS — Project 04:
+        <img src="../images/04-living-cities-thumb.jpg" alt="living cities" class="project-thumb">
+        Recommended: the urban heat map or masterplan view, PDF p.13–14
+      -->
+      <div class="project-thumb-placeholder">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="white" stroke-width="1.5"/><line x1="4" y1="16" x2="44" y2="16" stroke="white" stroke-width="1"/><line x1="16" y1="4" x2="16" y2="44" stroke="white" stroke-width="1"/></svg>
+      </div>
+      <div class="project-card-overlay">
+        <div class="project-card-num">04</div>
+        <div class="project-card-title">living cities</div>
+        <div class="project-card-sub">urban masterplans for climate, mobility and typology exploration</div>
+      </div>
+      <span class="project-card-arrow">↗</span>
+    </a>
+
+    <a href="projects/05-triangular-dreams.html" class="project-card">
+      <!-- 
+        IMAGE INSTRUCTIONS — Project 05:
+        <img src="../images/05-triangular-dreams-thumb.jpg" alt="triangular dreams" class="project-thumb">
+        Recommended: the teal triangulated mesh render, PDF p.15
+      -->
+      <div class="project-thumb-placeholder">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="white" stroke-width="1.5"/><line x1="4" y1="16" x2="44" y2="16" stroke="white" stroke-width="1"/><line x1="16" y1="4" x2="16" y2="44" stroke="white" stroke-width="1"/></svg>
+      </div>
+      <div class="project-card-overlay">
+        <div class="project-card-num">05</div>
+        <div class="project-card-title">triangular dreams</div>
+        <div class="project-card-sub">automated form-finding for a modular communication hall</div>
+      </div>
+      <span class="project-card-arrow">↗</span>
+    </a>
+
+    <a href="projects/06-reimagining.html" class="project-card">
+      <!-- 
+        IMAGE INSTRUCTIONS — Project 06:
+        <img src="../images/06-reimagining-thumb.jpg" alt="reimagining" class="project-thumb">
+        Recommended: the Palau de les Arts shell render, PDF p.17
+      -->
+      <div class="project-thumb-placeholder">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="2" stroke="white" stroke-width="1.5"/><line x1="4" y1="16" x2="44" y2="16" stroke="white" stroke-width="1"/><line x1="16" y1="4" x2="16" y2="44" stroke="white" stroke-width="1"/></svg>
+      </div>
+      <div class="project-card-overlay">
+        <div class="project-card-num">06</div>
+        <div class="project-card-title">reimagining</div>
+        <div class="project-card-sub">parametric optimisation to balance identity and performance</div>
+      </div>
+      <span class="project-card-arrow">↗</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="portfolio-section">
+  <div class="section-header">
+    <span class="section-label">Experience & Education</span>
+    <span class="section-num">03</span>
+  </div>
+  <div class="exp-layout fade-in">
+
+    <!-- PHOTO COLUMN -->
+    <div class="exp-photo-col">
+      <!-- 
+        IMAGE INSTRUCTIONS — Profile photo:
+        Replace the placeholder below with:
+        <img src="images/profile-photo.jpg" alt="Pablo Martí Villalba" class="exp-photo">
+        Use the photo from p.2 of your portfolio PDF (the one on the left side)
+        Crop it portrait/vertical, the face and upper body.
+      -->
+      <div class="exp-photo-placeholder">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="13" r="7" stroke="#444" stroke-width="1.5"/><path d="M4 32c0-8 28-8 28 0" stroke="#444" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span>Add profile photo:<br>images/profile-photo.jpg</span>
+      </div>
+    </div>
+
+    <!-- WORK -->
+    <div>
+      <h2 class="exp-col-title">Work<br>Experience</h2>
+      <div class="exp-list">
+        <div class="exp-item">
+          <div class="exp-role">Architectural Engineer</div>
+          <div class="exp-company">IDOM Architecture</div>
+          <div class="exp-location">Madrid, Spain</div>
+          <div class="exp-date">2023 — Present</div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-role">Generative Design Leader</div>
+          <div class="exp-company">IDOM Architecture</div>
+          <div class="exp-location">Madrid, Spain</div>
+          <div class="exp-date">2024 — Present</div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-role">Intern</div>
+          <div class="exp-company">ARUP</div>
+          <div class="exp-location">Amsterdam, The Netherlands</div>
+          <div class="exp-date">2020 — 2021</div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-role">Intern</div>
+          <div class="exp-company">Vela Design Architecture</div>
+          <div class="exp-location">Madrid, Spain</div>
+          <div class="exp-date">2019</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDUCATION -->
+    <div>
+      <h2 class="exp-col-title">Education &<br>Achievements</h2>
+      <div class="exp-list">
+        <div class="exp-item">
+          <div class="exp-role">Civil and Architectural Engineering MEng</div>
+          <div class="exp-company">University of Bath — <em style="font-weight:300; color:var(--grey)">First-Class Honours</em></div>
+          <div class="exp-location">Bath, United Kingdom</div>
+          <div class="exp-date">2018 — 2023</div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-role">Architectural Engineering (Exchange)</div>
+          <div class="exp-company">Technical University of Denmark (DTU)</div>
+          <div class="exp-location">Copenhagen, Denmark</div>
+          <div class="exp-date">2022 — 2023</div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-role">International Baccalaureate</div>
+          <div class="exp-company">IES Rosa Chacel — <em style="font-weight:300; color:var(--grey)">Grade A, Design Technology</em></div>
+          <div class="exp-location">Madrid, Spain</div>
+          <div class="exp-date">2016 — 2018</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="portfolio-section">
+  <div class="section-header">
+    <span class="section-label">Technical Skills</span>
+    <span class="section-num">04</span>
+  </div>
+  <div class="skills-grid fade-in">
+    <div>
+      <div class="skill-col-title">Design Software</div>
+      <ul class="skill-list">
+        <li>Rhinoceros 3D</li><li>Autodesk AutoCAD</li>
+        <li>SketchUp</li><li>Autodesk Revit</li>
+        <li>Adobe Illustrator</li><li>Ultimaker Cura</li>
+      </ul>
+    </div>
+    <div>
+      <div class="skill-col-title">Scripting</div>
+      <ul class="skill-list">
+        <li>Grasshopper</li><li>Python</li>
+        <li>Visual Basic (VBA)</li><li>Power BI</li>
+      </ul>
+      <div class="skill-col-title" style="margin-top:2rem">Building Performance</div>
+      <ul class="skill-list">
+        <li>IDA ICE</li><li>PV*SOL</li><li>DIALux EVO</li>
+      </ul>
+    </div>
+    <div>
+      <div class="skill-col-title">Grasshopper Ecosystem</div>
+      <ul class="skill-list">
+        <li>Colibri · Decoding Spaces</li>
+        <li>Dragonfly · Elefront</li>
+        <li>Galapagos · GeometryGym</li>
+        <li>Honeybee · Human</li>
+        <li>Kangaroo · Karamba</li>
+        <li>Ladybug · Lunchbox</li>
+        <li>Metahopper · Pangolin</li>
+        <li>Panelling Tools · Pufferfish</li>
+        <li>Rhino.Inside.Revit</li>
+        <li>TT Toolbox · Oasys GSA</li>
+      </ul>
+    </div>
+    <div>
+      <div class="skill-col-title">Structural Analysis</div>
+      <ul class="skill-list">
+        <li>ETABS</li><li>SAP2000</li>
+        <li>CYPECAD</li><li>Autodesk Robot</li>
+      </ul>
+      <div class="skill-col-title" style="margin-top:2rem">Other</div>
+      <ul class="skill-list">
+        <li>MS Office</li><li>OneClick LCA</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="portfolio-section">
+  <div class="section-header">
+    <span class="section-label">Contact</span>
+    <span class="section-num">05</span>
+  </div>
+  <h2 class="contact-heading fade-in">Let's<br><em>work</em><br>together</h2>
+  <div class="contact-links fade-in">
+    <a href="mailto:pamartivi@gmail.com" class="contact-link">↗ pamartivi@gmail.com</a>
+    <a href="https://www.linkedin.com/in/pablomartivillalba/" target="_blank" class="contact-link">↗ LinkedIn</a>
+    <a href="tel:+34677858146" class="contact-link">↗ +34 677 858 146</a>
+  </div>
+</section>
+
+<footer>
+  <span>Pablo Martí Villalba · Computational Design</span>
+  <span>Madrid, Spain · 2025</span>
+</footer>
+
+<script>
+// Parametric canvas texture in hero
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    draw();
+  }
+
+  function draw() {
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+    ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+    ctx.lineWidth = .6;
+
+    // Radial lines from a focal point (bottom-left, like a sun)
+    const cx = W * 0.15, cy = H * 1.1;
+    const numRays = 28;
+    for (let i = 0; i < numRays; i++) {
+      const angle = (-Math.PI * 0.7) + (i / (numRays - 1)) * Math.PI * 0.85;
+      const len = Math.max(W, H) * 1.6;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + Math.cos(angle) * len, cy + Math.sin(angle) * len);
+      ctx.globalAlpha = 0.12 + (i / numRays) * 0.08;
+      ctx.stroke();
+    }
+
+    // Arcs (concentric, like parametric growth rings)
+    ctx.globalAlpha = 1;
+    const numArcs = 12;
+    for (let i = 1; i <= numArcs; i++) {
+      const r = (i / numArcs) * H * 1.3;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, -Math.PI, 0);
+      ctx.globalAlpha = 0.05 + (i / numArcs) * 0.07;
+      ctx.stroke();
+    }
+
+    // Radial gradient overlay to fade edges
+    ctx.globalAlpha = 1;
+    const grad = ctx.createRadialGradient(W*0.5, H*0.5, 0, W*0.5, H*0.5, Math.max(W,H)*0.75);
+    grad.addColorStop(0, 'rgba(14,14,14,0)');
+    grad.addColorStop(1, 'rgba(14,14,14,0.92)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+})();
+
+// Fade in on scroll
+const faders = document.querySelectorAll('.fade-in');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.08 });
+faders.forEach(el => observer.observe(el));
+
+// Hero staggered reveal
+document.querySelectorAll('#hero .fade-in').forEach((el, i) => {
+  setTimeout(() => el.classList.add('visible'), 300 + i * 180);
+});
+</script>
+</body>
+</html>
