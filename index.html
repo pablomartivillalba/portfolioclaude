@@ -68,7 +68,7 @@
     display: flex; flex-direction: column; justify-content: flex-end;
     padding: 0 3rem 5rem;
     position: relative; overflow: hidden;
-    background: var(--black);
+    background: #000000;
   }
 
   /* Parametric SVG texture overlay */
@@ -197,7 +197,7 @@
     font-size: clamp(2.5rem, 5vw, 5rem);
     line-height: .95; text-transform: uppercase;
   }
-  .about-heading em { font-style: italic; font-weight: 300; color: var(--grey); }
+  .about-heading em { font-style: italic; font-weight: 300; color: var(--grey); text-transform: none; }
   .about-stats {
     display: grid; grid-template-columns: 1fr 1fr;
     gap: 2rem; margin-top: 3rem;
@@ -307,19 +307,23 @@
   /* ── EXPERIENCE ── */
   .exp-layout {
     display: grid;
-    grid-template-columns: 280px 1fr 1fr;
+    grid-template-columns: 320px 1fr 1fr;
     gap: 4rem;
-    align-items: start;
+    align-items: stretch;
   }
 
-  .exp-photo-col {}
+  .exp-photo-col {
+    margin-left: -3rem;
+    overflow: hidden;
+    align-self: stretch;
+  }
   .exp-photo {
     width: 100%;
-    aspect-ratio: 3/4;
+    height: 100%;
     object-fit: cover;
     object-position: center top;
     display: block;
-    filter: grayscale(20%);
+    filter: grayscale(15%);
   }
 
   /* Photo placeholder */
@@ -625,22 +629,16 @@
       <h2 class="exp-col-title">Work<br>Experience</h2>
       <div class="exp-list">
         <div class="exp-item">
-          <div class="exp-role">Architectural Engineer · Generative Design Leader</div>
+          <div class="exp-role">Architectural Engineer</div>
           <div class="exp-company">ONDDI</div>
           <div class="exp-location">🇪🇸 San Sebastián, Spain</div>
           <div class="exp-date">2025 — Present</div>
         </div>
         <div class="exp-item">
-          <div class="exp-role">Architectural Engineer</div>
+          <div class="exp-role">Architectural Engineer · Generative Design Leader</div>
           <div class="exp-company">IDOM Architecture</div>
           <div class="exp-location">🇪🇸 Madrid, Spain</div>
           <div class="exp-date">2023 — 2025</div>
-        </div>
-        <div class="exp-item">
-          <div class="exp-role">Generative Design Leader</div>
-          <div class="exp-company">IDOM Architecture</div>
-          <div class="exp-location">🇪🇸 Madrid, Spain</div>
-          <div class="exp-date">2024 — 2025</div>
         </div>
         <div class="exp-item">
           <div class="exp-role">Intern</div>
