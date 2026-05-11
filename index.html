@@ -348,10 +348,11 @@
 
   /* ── TOOL CAROUSEL ── */
   .tools-marquee {
+    display: none; /* shown by JS once images load */
     overflow: hidden;
     margin-top: 3.5rem;
     border-top: 1px solid #1e1e1e;
-    padding: 1.2rem 0;
+    padding: 1.4rem 0;
   }
   @keyframes marquee {
     from { transform: translateX(0); }
@@ -364,8 +365,14 @@
     width: max-content;
     animation: marquee 70s linear infinite;
   }
+  .tools-marquee.static .tools-track {
+    animation: none;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
   .tools-track img {
-    height: 34px;
+    height: 36px;
     width: auto;
     padding: 0 2.4rem;
     opacity: 0.5;
@@ -374,6 +381,7 @@
     border-right: 1px solid #1e1e1e;
     transition: opacity .25s;
   }
+  .tools-marquee.static .tools-track img { border-right: none; }
   .tools-track img:hover { opacity: 0.85; }
 
   /* ── SKILLS HEADING ── */
@@ -595,7 +603,7 @@
   <div class="projects-grid">
 
     <a href="projects/01-leafscapes.html" class="project-card">
-      <img src="images/01-leafscapes-thumb.jpg" alt="Leafscapes" class="project-thumb">
+      <img src="images/01-leafscapes/thumb.jpg" alt="Leafscapes" class="project-thumb">
       <div class="project-card-overlay">
         <div class="project-card-num">01</div>
         <div class="project-card-title">leafscapes</div>
@@ -605,7 +613,7 @@
     </a>
 
     <a href="projects/02-adaptive-skins.html" class="project-card">
-      <img src="images/02-adaptive-skins-thumb.jpg" alt="Adaptive Skins" class="project-thumb">
+      <img src="images/02-adaptive-skins/thumb.jpg" alt="Adaptive Skins" class="project-thumb">
       <div class="project-card-overlay">
         <div class="project-card-num">02</div>
         <div class="project-card-title">adaptive skins</div>
@@ -615,7 +623,7 @@
     </a>
 
     <a href="projects/03-structural-horizons.html" class="project-card">
-      <img src="images/03-structural-horizons-thumb.jpg" alt="Structural Horizons" class="project-thumb">
+      <img src="images/03-structural-horizons/thumb.jpg" alt="Structural Horizons" class="project-thumb">
       <div class="project-card-overlay">
         <div class="project-card-num">03</div>
         <div class="project-card-title">structural horizons</div>
@@ -625,7 +633,7 @@
     </a>
 
     <a href="projects/04-living-cities.html" class="project-card">
-      <img src="images/04-living-cities-thumb.jpg" alt="Living Cities" class="project-thumb">
+      <img src="images/04-living-cities/thumb.jpg" alt="Living Cities" class="project-thumb">
       <div class="project-card-overlay">
         <div class="project-card-num">04</div>
         <div class="project-card-title">living cities</div>
@@ -635,7 +643,7 @@
     </a>
 
     <a href="projects/05-triangular-dreams.html" class="project-card">
-      <img src="images/05-triangular-dreams-thumb.jpg" alt="Triangular Dreams" class="project-thumb">
+      <img src="images/05-triangular-dreams/thumb.jpg" alt="Triangular Dreams" class="project-thumb">
       <div class="project-card-overlay">
         <div class="project-card-num">05</div>
         <div class="project-card-title">triangular dreams</div>
@@ -644,12 +652,14 @@
       <span class="project-card-arrow">↗</span>
     </a>
 
-    <a href="projects/06-reimagining.html" class="project-card">
-      <img src="images/06-reimagining-thumb.jpg" alt="Reimagining" class="project-thumb">
+    <a href="projects/06-spatial-systems.html" class="project-card">
+      <div class="project-thumb-placeholder">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><rect x="1" y="1" width="38" height="38" stroke="white" stroke-opacity=".12"/><line x1="1" y1="20" x2="39" y2="20" stroke="white" stroke-opacity=".12"/><line x1="20" y1="1" x2="20" y2="39" stroke="white" stroke-opacity=".12"/></svg>
+      </div>
       <div class="project-card-overlay">
         <div class="project-card-num">06</div>
-        <div class="project-card-title">reimagining</div>
-        <div class="project-card-sub">parametric optimisation to balance identity and performance</div>
+        <div class="project-card-title">spatial systems</div>
+        <div class="project-card-sub">form-finding and computational workflows for complex structural roofs</div>
       </div>
       <span class="project-card-arrow">↗</span>
     </a>
@@ -863,15 +873,21 @@ const observer = new IntersectionObserver(entries => {
 faders.forEach(el => observer.observe(el));
 
 // Logo carousel — loaded from images/logos/manifest.json
-fetch('images/logos/manifest.json')
+fetch('images/logos/manifest.json?v=' + Date.now())
   .then(r => r.ok ? r.json() : [])
   .then(files => {
     if (!files.length) return;
     const track = document.getElementById('tools-track');
-    if (!track) return;
+    const marquee = track && track.closest('.tools-marquee');
+    if (!track || !marquee) return;
     const imgs = files.map(f => `<img src="images/logos/${f}" alt="">`).join('');
-    track.innerHTML = imgs + imgs; // duplicate for seamless loop
-    track.closest('.tools-marquee').style.display = '';
+    if (files.length >= 8) {
+      track.innerHTML = imgs + imgs; // duplicate for seamless loop
+    } else {
+      track.innerHTML = imgs;
+      marquee.classList.add('static');
+    }
+    marquee.style.display = '';
   })
   .catch(() => {});
 
