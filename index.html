@@ -307,18 +307,18 @@
   /* ── EXPERIENCE ── */
   #experience {
     position: relative;
-    padding-left: calc(320px + 4rem);
+    padding-left: calc(420px + 3rem);
   }
   .exp-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    gap: 2.5rem;
     align-items: start;
   }
   .exp-photo-col {
     position: absolute;
     left: 0; top: 0; bottom: 0;
-    width: 320px;
+    width: 420px;
     overflow: hidden;
   }
   .exp-photo {
@@ -329,6 +329,52 @@
     display: block;
     filter: grayscale(15%);
   }
+
+  /* ── PROJECTS SUBTITLE ── */
+  .projects-intro-subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: .68rem; font-weight: 700;
+    letter-spacing: .35em; text-transform: uppercase;
+    color: var(--grey); margin-bottom: .8rem;
+  }
+
+  /* ── PROJECTS DESCRIPTION ── */
+  .projects-desc {
+    max-width: 620px;
+    font-size: .9rem; font-weight: 300;
+    color: var(--grey-light); line-height: 1.7;
+    margin-bottom: 4rem;
+  }
+
+  /* ── TOOL CAROUSEL ── */
+  .tools-marquee {
+    overflow: hidden;
+    margin-top: 3.5rem;
+    border-top: 1px solid #1e1e1e;
+    padding: 1.2rem 0;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .tools-track {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: max-content;
+    animation: marquee 70s linear infinite;
+  }
+  .tools-track img {
+    height: 34px;
+    width: auto;
+    padding: 0 2.4rem;
+    opacity: 0.5;
+    filter: grayscale(15%);
+    display: block;
+    border-right: 1px solid #1e1e1e;
+    transition: opacity .25s;
+  }
+  .tools-track img:hover { opacity: 0.85; }
 
   /* ── SKILLS HEADING ── */
   .skills-heading {
@@ -481,7 +527,7 @@
   <a href="#hero" class="nav-logo">Pablo Martí Villalba</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#projects">Work</a></li>
+    <li><a href="#projects">Selected Work</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -543,14 +589,8 @@
 
 <!-- PROJECTS -->
 <section id="projects" class="portfolio-section">
-  <div class="section-header">
-    <span class="section-label">Selected Work</span>
-    <span class="section-num">02</span>
-  </div>
-  <div class="projects-intro fade-in">
-    <h2>Computational<br>Projects</h2>
-    <p>A selection of work exploring the boundary between engineering logic and architectural ambition — developed at IDOM Architecture and during academic research at the University of Bath.</p>
-  </div>
+  <h2 class="skills-heading fade-in">Selected Work</h2>
+  <p class="projects-desc fade-in">A selection of work exploring the boundary between engineering logic and architectural ambition — developed at IDOM Architecture and during academic research at the University of Bath.</p>
 
   <div class="projects-grid">
 
@@ -686,10 +726,6 @@
 
 <!-- SKILLS -->
 <section id="skills" class="portfolio-section">
-  <div class="section-header">
-    <span class="section-label">Technical Skills</span>
-    <span class="section-num">04</span>
-  </div>
   <h2 class="skills-heading fade-in">Technical<br>Skills</h2>
   <div class="skills-grid fade-in">
     <div>
@@ -738,6 +774,9 @@
       </ul>
     </div>
   </div>
+  <div class="tools-marquee fade-in">
+    <div class="tools-track" id="tools-track"></div>
+  </div>
 </section>
 
 <!-- CONTACT -->
@@ -756,7 +795,7 @@
 
 <footer>
   <span>Pablo Martí Villalba · Computational Design</span>
-  <span>Madrid, Spain · 2025</span>
+  <span>2026</span>
 </footer>
 
 <script>
@@ -822,6 +861,19 @@ const observer = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.08 });
 faders.forEach(el => observer.observe(el));
+
+// Logo carousel — loaded from images/logos/manifest.json
+fetch('images/logos/manifest.json')
+  .then(r => r.ok ? r.json() : [])
+  .then(files => {
+    if (!files.length) return;
+    const track = document.getElementById('tools-track');
+    if (!track) return;
+    const imgs = files.map(f => `<img src="images/logos/${f}" alt="">`).join('');
+    track.innerHTML = imgs + imgs; // duplicate for seamless loop
+    track.closest('.tools-marquee').style.display = '';
+  })
+  .catch(() => {});
 
 // Hero staggered reveal
 document.querySelectorAll('#hero .fade-in').forEach((el, i) => {
