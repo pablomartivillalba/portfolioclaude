@@ -52,6 +52,13 @@
   .next-arrow:hover{color:var(--white);transform:translateX(6px);}
   .fade-in{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease;}
   .fade-in.visible{opacity:1;transform:translateY(0);}
+  /* Meta side-by-side layout */
+  .project-intro-meta{display:flex;flex-direction:row;gap:4rem;margin-top:2.5rem;flex-wrap:wrap;}
+  /* Transparent PNG images — show full composition on dark background */
+  .img-full{background:var(--black);}
+  .img-full img{object-fit:contain;}
+  .img-duo-item{background:var(--black);}
+  .img-duo-item img{object-fit:contain;}
   @media(max-width:900px){.project-intro{grid-template-columns:1fr;gap:3rem;}.img-duo{grid-template-columns:1fr;}nav{padding:1.2rem 1.5rem;}.project-hero,.project-content,.project-next{padding-left:1.5rem;padding-right:1.5rem;}}
   @media(max-width:600px){.project-title{font-size:clamp(3rem,14vw,6rem);}}
 </style>
@@ -64,13 +71,13 @@
 
 <section class="project-hero">
   <div class="project-hero-img-wrap">
-    <img src="../images/01-leafscapes/hero.jpg" alt="Leafscapes — wooden canopy structures" class="project-hero-img">
+    <img src="../images/01-leafscapes/hero.png" alt="Leafscapes — wooden canopy structures" class="project-hero-img" style="object-position:right center;">
   </div>
   <div class="project-hero-bg"></div>
   <div class="project-hero-content">
     <div class="project-num">Project 01</div>
     <h1 class="project-title">Leafscapes</h1>
-    <div class="project-tags"><span class="tag">Parametric Design</span><span class="tag">Grasshopper</span><span class="tag">Canopy Structures</span><span class="tag">Form-Finding</span><span class="tag">Karamba</span></div>
+    <div class="project-tags"><span class="tag">Parametric Design</span><span class="tag">Canopies</span><span class="tag">Form Discretisation</span><span class="tag">Interactive Tool</span><span class="tag">Structural Analysis</span></div>
   </div>
 </section>
 
@@ -79,30 +86,46 @@
     <div>
       <div class="project-intro-label">Overview</div>
       <h2 class="project-intro-heading">Parametric Geometries<br><em>for</em><br>Organic Canopies</h2>
-      <div class="project-intro-meta"><div class="meta-item"><div class="meta-label">Year</div><div class="meta-value">2024</div></div><div class="meta-item"><div class="meta-label">Context</div><div class="meta-value">IDOM Architecture</div></div><div class="meta-item"><div class="meta-label">Tools</div><div class="meta-value">Rhinoceros, Grasshopper, Kangaroo, Karamba</div></div><div class="meta-item"><div class="meta-label">Role</div><div class="meta-value">Computational Designer</div></div></div>
+      <div class="project-intro-meta"><div class="meta-item"><div class="meta-label">Year</div><div class="meta-value">2024</div></div><div class="meta-item"><div class="meta-label">Tools</div><div class="meta-value">Rhinoceros, Grasshopper, Human, GeometryGym, SAP2000</div></div></div>
     </div>
     <div class="project-intro-body"><p>Leafscapes was born from the challenge of merging performance and expression into a single architectural gesture. A series of leaf-shaped canopies were parametrised to provide solar protection and embrace the building in an organic movement that blurs the boundary between nature and structure.</p><p>The design demanded a careful balance: geometries had to mirror natural disorder while remaining typologically controlled, structurally feasible and buildable at large scale. Size and bi-directional curvature were defined as the primary generative variables, allowing an interactive tool to emerge — one that lets designers explore typologies, position canopies freely and test configurations in real time.</p><p>Each configuration was automatically translated into structural standards and loading analysis models, enabling architects and engineers to collaborate fluidly and receive instant feedback on structural feasibility — turning structure into a space for exploration.</p></div>
   </div>
 
-  <div class="img-full fade-in"><img src="../images/01-leafscapes/01.jpg" alt="Leaf geometry diagrams"></div>
-  <div class="img-caption fade-in">Veinwork, seed and growth — deconstructing geometry as generative rules · Size and bi-directional curvature as the primary design variables</div>
+  <div class="img-full fade-in"><img src="../images/01-leafscapes/02.png" alt="Leaf geometry discretisation — from vein network to panels"></div>
+  <div class="img-caption fade-in">Form discretisation — from vein network to parametric panel logic · The leaf as a geometric rule set</div>
   <div class="project-section fade-in">
     <div class="project-section-label">Design Rules</div>
     <h2 class="project-section-heading">From Vein to Canopy</h2>
     <div class="project-section-body"><p>The project began by deconstructing geometry: studying the veinwork of a leaf, from seed to growth. These rules were translated into parametric logic — size and bi-directional curvature became the primary design variables governing both the formal identity and the structural character of each element.</p><p>Variations were generated by combining these two parameters across a typological range, producing a family of canopy forms that were formally diverse yet structurally consistent.</p></div>
   </div>
-  <div class="img-full fade-in"><img src="../images/01-leafscapes/02.jpg" alt="Organic layouts and Grasshopper definition"></div>
-  <div class="img-caption fade-in">Organic layouts — compositions shading the promenades · Interactive tool for position, orientation and typology exploration</div>
+
+  <div class="img-full fade-in"><img src="../images/01-leafscapes/03.png" alt="Leaf typology variations — plan and section"></div>
+  <div class="img-caption fade-in">Typological range — curvature and form as continuous variables · Plan views and sectional profiles across the family</div>
   <div class="project-section fade-in">
-    <div class="project-section-label">Structural Integration</div>
-    <h2 class="project-section-heading">Organic Layouts</h2>
-    <div class="project-section-body"><p>With geometry under control, an interactive tool was developed to let designers play with different typologies, adjusting their position and orientation in space. Clusters of canopies could dominate the building while shaping shaded promenades that enhanced the natural setting.</p><p>What began as a structural necessity soon became a design opportunity. A refined version of the tool allowed designers to position and tilt columns freely, while a script translated each configuration into structural standards and loading analysis models — turning the structural process into a space for exploration.</p></div>
+    <div class="project-section-label">Interactive Tool</div>
+    <h2 class="project-section-heading">Live Design Environment</h2>
+    <div class="project-section-body"><p>With geometry under parametric control, an interactive tool was developed to let designers explore typologies, adjust position and orientation in space, and compose clusters of canopies in real time. Shaded promenades and canopy groupings could be tested and refined without leaving the design environment.</p><p>A refined version of the tool allowed designers to position and tilt columns freely, while a script automatically translated each configuration into structural standards and loading analysis models — turning structure into a space for exploration rather than a constraint.</p></div>
   </div>
+
+  <div class="img-full fade-in"><img src="../images/01-leafscapes/04.png" alt="Grasshopper interactive tool definition"></div>
+  <div class="img-caption fade-in">Interactive tool — Grasshopper definition enabling real-time typology, position and orientation exploration</div>
+
   <div class="img-duo fade-in">
-    <div class="img-duo-item"><img src="../images/01-leafscapes/03.jpg" alt="Wooden canopy render left"></div>
-    <div class="img-duo-item"><img src="../images/01-leafscapes/04.jpg" alt="Wooden canopy render right"></div>
+    <div class="img-duo-item"><img src="../images/01-leafscapes/05.png" alt="Timber leaf canopy structure"></div>
+    <div class="img-duo-item"><img src="../images/01-leafscapes/06.png" alt="Timber canopy dome structure"></div>
   </div>
-  <div class="img-caption fade-in">Structural verification renders — wooden canopy structures in context · Rooted supports anchoring for unobstructed and functional layouts</div>
+  <div class="img-caption fade-in">Structural forms — timber canopy configurations linked to SAP2000 for automated loading analysis and feasibility verification</div>
+  <div class="project-section fade-in">
+    <div class="project-section-label">Structural Analysis</div>
+    <h2 class="project-section-heading">Structure as Exploration</h2>
+    <div class="project-section-body"><p>Each configuration generated by the interactive tool was automatically translated into a structural model, linked to SAP2000 for loading analysis and preliminary sizing. This seamless connection between design and analysis enabled architects and engineers to collaborate in real time, receiving instant structural feedback on every formal decision.</p><p>The result was a workflow where structural feasibility was not a gate at the end of design, but a continuous parameter woven into it from the beginning.</p></div>
+  </div>
+
+  <div class="img-duo fade-in">
+    <div class="img-duo-item"><img src="../images/01-leafscapes/07.png" alt="Structural analysis wireframes — multiple canopies"></div>
+    <div class="img-duo-item"><img src="../images/01-leafscapes/08.png" alt="Canopy structures in architectural context"></div>
+  </div>
+  <div class="img-caption fade-in">Analysis and context — structural configurations under analysis · Canopy clusters integrated into the architectural environment</div>
 </div>
 
 <div class="project-next">
